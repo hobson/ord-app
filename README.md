@@ -25,6 +25,7 @@ $ uv venv -p 3.12
 $ source .venv/bin/activate
 $ uv pip install -e .[docs,tests,examples]
 $ python explore_data.py
+$ cd ..
 ```
 
 ### Install `ord-app`
@@ -34,10 +35,9 @@ You must install PostgreSQL before installing `ord-app` from this repository.
 ```bash
 $ sudo apt install -y postgresql-common
 $ sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+$ sudo apt install --update --upgrade postgresql-18
 $ git clone git@github.com:hobson/ord-app.git
 $ cd ord-app
-$ uv pip install -e .[docs,tests,examples]
-$ sudo apt install --update --upgrade postgresql-18
 $ uv pip install -e ".[tests]"
 ```
 
