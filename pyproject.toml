@@ -14,12 +14,13 @@
 
 [project]
 name = "ord-app"
-version = "0.1.0"
+version = "0.2.0"
 description = "FastAPI app for the viewing and editing the [Open Reaction Database](github.com/Open-Reaction-Database)"
 authors = [
     {name = "hobs", email = "github@totalgood.com"},
     {name = "Steven Kearnes", email = "github.com/skearns"},
     ]
+requires-python = ">=3.12,<3.13"
 readme = "README.md"
 # url = 'https://github.com/Open-Reaction-Database/ord-schema'"
 classifiers = [
