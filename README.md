@@ -1,31 +1,57 @@
-# ord-app
+# Open Reaction Database: App (ord-app)
 
-## Local development
+This repository contains a fastapi+postrgresql API and web-app for editing records in [Open Reaction Database](https://docs.open-reaction-database.org).
 
-1. Install dependencies
+## Installation
 
-   * PostgreSQL
-   * Python >= 3.10
+### IMPORTANT: Install ord-data and ord-schema first!!
 
-2. Install the package
+You **MUST** install `git-lfs` and clone [`ord-data`](https://github.com/open-reaction-database/ord-data) from the official repo **BEFORE** installing this fork of the `ord-schema` package.
 
-    ```shell
-    git clone git@github.com:open-reaction-database/ord-app.git
-    cd ord-app
-    pythom -m pip install -e ".[tests]"
-    ```
+1. install and initialize git-lfs
+2. clone `ord-data` 
+3. clone `ord-schema`
+4. create and activate `ord-schema/.venv/`
+5. install `ord-schema` in .venv
+6. run expore_data.py
 
-3. Run the FastAPI server
+```bash
+$ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.python.sh | bash
+$ git lfs install
+$ git clone https://github.com/open-reaction-database/ord-data
+$ git clone https://github.com/hobson/ord-schema
+$ cd ord-schema
+$ uv venv -p 3.12
+$ source .venv/bin/activate
+$ uv pip install -e .[docs,tests,examples]
+$ python explore_data.py
+```
 
-    ```shell
-    cd ord_app/service_api
-    ORD_APP_TESTING=TRUE fastapi dev main.py
-    ```
+### Install `ord-app`
+
+You must install PostgreSQL before installing `ord-app` from this repository.
+
+```bash
+$ sudo apt install -y postgresql-common
+$ sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+$ git clone git@github.com:hobson/ord-app.git
+$ cd ord-app
+$ uv pip install -e .[docs,tests,examples]
+$ sudo apt install --update --upgrade postgresql-18
+$ uv pip install -e ".[tests]"
+```
+
+
+```shell
+cd ord_app/service_api
+ORD_APP_TESTING=TRUE fastapi dev main.py
+```
     
     This creates a test PostgreSQL database and starts the server at http://localhost:8000. Navigate to
     http://localhost:8000/docs for the interactive Swagger docs.
 
 ## Run in Docker
+
 ### docker-compose
 You can run the Back-End and the Database using a single docker-compose file.
 ```shell
