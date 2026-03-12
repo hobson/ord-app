@@ -43,12 +43,12 @@ $ uv pip install -e ".[tests]"
 
 
 ```shell
-cd ord_app/service_api
+cd src/ord_app/service_api
 ORD_APP_TESTING=TRUE fastapi dev main.py
 ```
     
-    This creates a test PostgreSQL database and starts the server at http://localhost:8000. Navigate to
-    http://localhost:8000/docs for the interactive Swagger docs.
+This creates a test PostgreSQL database and starts the server at http://localhost:8000. Navigate to
+http://localhost:8000/docs for the interactive Swagger docs.
 
 ## Run in Docker
 

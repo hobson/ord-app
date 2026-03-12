@@ -11,13 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import dotenv
+from ord_app.service_api.constants import AppEnvs
 from pathlib import PosixPath
-
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from ord_app.service_api.constants import AppEnvs
-
+dotenv.load_dotenv()
 
 class Settings(BaseSettings):
     base_dir: PosixPath = PosixPath(__file__).parent
@@ -28,10 +28,10 @@ class Settings(BaseSettings):
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:5173"])
 
     # databases
-    pg_dsn: str = "postgresql+asyncpg://ord@localhost:5400/ord"  # NOSONAR
+    pg_dsn: str = "postgresql+asyncpg://ord@localhost:5432/ord"  # NOSONAR
     # Alembic can't work with asynchronous driver
-    pg_alembic_dsn: str = "postgresql+psycopg://ord@localhost:5400/ord"  # NOSONAR
-    pg_test_dsn: str = "postgresql+psycopg://ord@localhost:5400/test"  # NOSONAR
+    pg_alembic_dsn: str = f"postgresql+psycopg://hobs:{PG_PASSWORD}@localhost:5432/ord"  # NOSONAR
+    pg_test_dsn: str = f"postgresql+psycopg://hobs:{PG_PASSWORD}@localhost:5432/test"  # NOSONAR
 
     # Encryption and auth
     auth0_domain: str = Field("", validation_alias="vite_auth0_domain")
