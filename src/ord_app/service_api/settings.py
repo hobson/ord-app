@@ -17,7 +17,9 @@ from pathlib import PosixPath
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-dotenv.load_dotenv()
+# dotenv.load_dotenv()
+
+from ord_schema.constants import PG_URL, PG_PASSWORD
 
 class Settings(BaseSettings):
     base_dir: PosixPath = PosixPath(__file__).parent
@@ -28,7 +30,7 @@ class Settings(BaseSettings):
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:5173"])
 
     # databases
-    pg_dsn: str = "postgresql+asyncpg://ord@localhost:5432/ord"  # NOSONAR
+    pg_dsn: str = f"postgresql+asyncpg://hobs:{PG_PASSWORD}@localhost:5432/ord"  # NOSONAR
     # Alembic can't work with asynchronous driver
     pg_alembic_dsn: str = f"postgresql+psycopg://hobs:{PG_PASSWORD}@localhost:5432/ord"  # NOSONAR
     pg_test_dsn: str = f"postgresql+psycopg://hobs:{PG_PASSWORD}@localhost:5432/test"  # NOSONAR
