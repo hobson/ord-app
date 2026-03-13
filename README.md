@@ -6,7 +6,13 @@ This repository contains a fastapi+postrgresql API and web-app for editing recor
 
 ### IMPORTANT: Install ord-data and ord-schema first!!
 
-You **MUST** install `git-lfs` and clone [`ord-data`](https://github.com/open-reaction-database/ord-data) from the official repo **BEFORE** installing this fork of the `ord-schema` package.
+Install PostgreSQL with the RDKIT plugin and populate a database by installing `git-lfs` before cloning [`ord-data`](https://github.com/open-reaction-database/ord-data), which will download all the protobuf files from git-LFS.
+
+```shell
+$ sudo apt install -y postgresql-common
+$ sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+$ sudo apt install --update --upgrade postgresql-17 postgresql-17-rdkit postgresql-17-pgvector
+```
 
 1. install and initialize git-lfs
 2. clone `ord-data` 
@@ -28,14 +34,18 @@ $ python explore_data.py
 $ cd ..
 ```
 
-### Install `ord-app`
+I also needed to update my search path to include the `ord` schema where I created and loaded all my tables.
 
-You must install PostgreSQL before installing `ord-app` from this repository.
+```shell
+psql -d ord -u hobs 'SET search_path = ag_catalog, "$user", public, ord, pubchem;'
+```
+
+### Install `ord-app`
 
 ```bash
 $ sudo apt install -y postgresql-common
 $ sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
-$ sudo apt install --update --upgrade postgresql-18
+$ sudo apt install --update --upgrade postgresql-17 postgresql-rdkit
 $ git clone git@github.com:hobson/ord-app.git
 $ cd ord-app
 $ uv pip install -e ".[tests]"

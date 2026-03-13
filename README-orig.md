@@ -6,25 +6,35 @@
 
    * PostgreSQL
    * Python >= 3.10
+   * Git LFS
 
-2. Install the package
+2. Clone `ord-schema` and `ord-data` and use them to create and populate a postgresql database
 
-    ```shell
-    git clone git@github.com:open-reaction-database/ord-app.git
-    cd ord-app
-    pythom -m pip install -e ".[tests]"
-    ```
+I also needed to update my search path to include the `ord` schema where I created and loaded all my tables.
 
-3. Run the FastAPI server
+```shell
+psql -d ord -u hobs 'SET search_path = ag_catalog, "$user", public, ord, pubchem;'
+```
 
-    ```shell
-    cd ord_app/service_api
-    ORD_APP_TESTING=TRUE fastapi dev main.py
-    ```
-    
-    This creates a test PostgreSQL database and starts the server at http://localhost:8000. Navigate to
-    http://localhost:8000/docs for the interactive Swagger docs.
+3. Install the package
 
+```shell
+git clone git@github.com:open-reaction-database/ord-app.git
+cd ord-app
+pythom -m pip install -e ".[tests]"
+```
+
+4. Run the FastAPI server
+
+```shell
+# cd src/ord_app/service_api
+ORD_APP_TESTING=TRUE fastapi dev src/ord_app/service_api/main.py
+```
+
+This creates a test PostgreSQL database and starts the server at http://localhost:8000. Navigate to
+http://localhost:8000/docs for the interactive Swagger docs.
+
+### RelationNotFound
 ## Run in Docker
 ### docker-compose
 You can run the Back-End and the Database using a single docker-compose file.
